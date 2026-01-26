@@ -101,7 +101,7 @@ if result.should_respar:
 
 ## Used By
 
-- [DMG (Decision Moment Graph)](https://github.com/synthanai/dmg-open-standard) — Decision governance standard
+- [DMG (Decision Moment Graph)](https://github.com/synthanai/decision-moment-graph) — Decision governance standard
 - [VAULT-KIT](https://github.com/synthanai/vault-kit) — Privacy-first crisis coordination
 
 ---

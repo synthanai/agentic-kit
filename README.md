@@ -1,6 +1,7 @@
 # agentic-kit
 
-> **Reusable agentic infrastructure for AI decision systems.**
+> **Reusable agentic infrastructure for AI decision systems.**  
+> *Agents need infrastructure, not just prompts.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
@@ -9,7 +10,8 @@
 
 ## What is agentic-kit?
 
-**agentic-kit** provides battle-tested primitives for building reliable AI agent systems:
+**agentic-kit** is the **Standard Infrastructure** for building reliable AI agent systems.
+It provides the battle-tested primitives you need to move from "demo" to "production":
 
 - 🧠 **Semantic Memory** — Embedding-based retrieval with fallback to keywords
 - 🚀 **Action Dispatchers** — Pluggable execution backends (logging, HTTP, dry-run)
@@ -22,14 +24,8 @@
 
 ```bash
 pip install agentic-kit
-
-# With optional dependencies
-pip install agentic-kit[embeddings]  # For semantic memory
-pip install agentic-kit[http]        # For HTTP dispatchers
-pip install agentic-kit[all]         # Everything
+# Options: [embeddings], [http], [all]
 ```
-
----
 
 ## Quick Start
 
@@ -37,53 +33,9 @@ pip install agentic-kit[all]         # Everything
 
 ```python
 from agentic_kit import SemanticMemoryStore
-
 store = SemanticMemoryStore()
-store.add({"id": "decision-001", "question": "Should we migrate?", "answer": "Yes"})
-
-# Query similar decisions
-similar = store.query("migration strategy", limit=5)
-```
-
-### Action Dispatchers
-
-```python
-from agentic_kit import LoggingDispatcher, DryRunDispatcher
-
-# Log actions without side effects
-dispatcher = LoggingDispatcher()
-result = dispatcher.execute({"action": "deploy", "target": "production"})
-
-# Simulate with configurable success rate
-dry_run = DryRunDispatcher(success_rate=0.9)
-```
-
-### Circuit Breakers
-
-```python
-from agentic_kit import CircuitBreaker, RateLimiter
-
-breaker = CircuitBreaker(failure_threshold=3, recovery_timeout=60)
-
-with breaker:
-    result = risky_operation()
-
-# Rate limiting
-limiter = RateLimiter(max_calls=100, window_seconds=3600)
-if limiter.allow():
-    execute_action()
-```
-
-### Reflection Loop
-
-```python
-from agentic_kit import ReflectionLoop
-
-reflector = ReflectionLoop()
-result = reflector.evaluate(decision_data, observation)
-
-if result.should_respar:
-    print(f"Re-deliberation needed: {result.reason}")
+store.add({"id": "1", "text": "Deploy to prod"})
+print(store.query("deployment"))
 ```
 
 ---
@@ -92,37 +44,20 @@ if result.should_respar:
 
 | Module | Classes | Purpose |
 |--------|---------|---------|
-| `memory` | `SemanticMemoryStore`, `SimpleMemoryStore` | Decision/context retrieval |
-| `dispatchers` | `LoggingDispatcher`, `HttpDispatcher`, `DryRunDispatcher`, `CompositeDispatcher` | Action execution |
-| `circuit_breaker` | `CircuitBreaker`, `KillSwitch`, `RateLimiter` | Safety mechanisms |
-| `reflection` | `ReflectionLoop`, `ConfidenceCalibration` | Post-action analysis |
+| `memory` | `SemanticMemoryStore` | Context retrieval |
+| `dispatchers` | `LoggingDispatcher` | Safe execution |
+| `circuit_breaker` | `CircuitBreaker` | Loop safety |
+| `reflection` | `ReflectionLoop` | Self-correction |
 
 ---
 
-## Used By
+## The SYNTHAI Ecosystem
 
-- [DMG (Decision Moment Graph)](https://github.com/synthanai/decision-moment-graph) — Decision governance standard
-- [VAULT-KIT](https://github.com/synthanai/vault-kit) — Privacy-first crisis coordination
+| Component | Role |
+| :--- | :--- |
+| **[Decision Moment Graph](https://github.com/synthanai/decision-moment-graph)** | The **Standard** for reversible, auditable decisions. |
+| **[VAULT-KIT](https://github.com/synthanai/vault-kit)** | The **Protocol** for privacy-first coordination. |
+| **[agentic-kit](https://github.com/synthanai/agentic-kit)** | The **Infrastructure** for reliable agent systems. |
 
----
+> *Built by [SYNTHAI](https://synthai.tech) — Decision Intelligence for the AI Era.*
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
----
-
-## License
-
-MIT — see [LICENSE](LICENSE).
-
-**Trademark**: "agentic-kit" is a trademark of SYNTHAI TECH PTY LTD.
-
----
-
-## The Philosophy
-
-> Agents need infrastructure, not just prompts.
-> agentic-kit provides the primitives so you can focus on the logic.
-
-Built by [SYNTHAI](https://synthai.tech) — Decision Intelligence for the AI Era.

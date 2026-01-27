@@ -1,0 +1,60 @@
+{
+    "name": "@synthai/decision-graph",
+    "version": "0.1.0",
+    "description": "Interactive graph visualization for DMG decision moments",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "scripts": {
+        "dev": "vite build --watch",
+        "build": "vite build && tsc --emitDeclarationOnly",
+        "check-types": "tsc --noEmit",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "synthai",
+        "dmg",
+        "decision-moment",
+        "graph",
+        "visualization",
+        "d3-force",
+        "react",
+        "canvas"
+    ],
+    "author": "SYNTHAI",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/synthanai/agentic-kit.git",
+        "directory": "packages/decision-graph"
+    },
+    "peerDependencies": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0"
+    },
+    "dependencies": {
+        "d3-force": "^3.0.0",
+        "motion": "^12.0.0"
+    },
+    "devDependencies": {
+        "@types/d3-force": "^3.0.0",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "typescript": "^5.0.0",
+        "vite": "^5.0.0"
+    }
+}

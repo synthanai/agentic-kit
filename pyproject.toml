@@ -66,6 +66,7 @@ packages = ["agentic_kit"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
+asyncio_mode = "auto"
 
 [tool.ruff]
 line-length = 100

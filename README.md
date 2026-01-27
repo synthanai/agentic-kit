@@ -20,6 +20,20 @@ It provides the battle-tested primitives you need to move from "demo" to "produc
 
 ---
 
+## Heptagon & DMS Integration
+
+**agentic-kit** powers the **ENACT** and **YIELD** phases of the [Decision Moment Standard (DMS)](../decision-moment-standard/README.md) lifecycle.
+
+> **Cycle**: **FRAME → SPAR → GATE → COMMIT → ENACT → YIELD → GAUGE**
+
+| Phase | Agentic-Kit Module | Role |
+|-------|--------------------|------|
+| **ENACT** | `dispatchers` | Safely execute the committed instruction |
+| **YIELD** | `circuit_breaker` | Monitor execution health and stop runaway loops |
+| **GAUGE** | `reflection` | Critically evaluate the result against the prediction |
+
+---
+
 ## Installation
 
 ```bash
@@ -51,6 +65,31 @@ print(store.query("deployment"))
 
 ---
 
+## 🌐 Context7 Integration (Optional)
+
+Fetch versioned library documentation via the Context7 MCP bridge:
+
+```python
+from agentic_kit import Context7Client, context7_available
+
+# Check availability
+if context7_available():
+    async with Context7Client() as client:
+        docs = await client.get_library_docs("react", "18")
+        print(docs.content[:500])
+```
+
+### Features
+
+- **Async-first**: Built on `aiohttp` for non-blocking I/O
+- **Graceful degradation**: Falls back to GitHub/npm if Context7 unavailable
+- **Caching**: In-memory library ID cache for repeated lookups
+- **Retry logic**: Exponential backoff with configurable retries
+
+> **Note**: Requires `aiohttp`. Install with `pip install aiohttp`.
+
+---
+
 ## The SYNTHAI Ecosystem
 
 | Component | Role |
@@ -60,4 +99,5 @@ print(store.query("deployment"))
 | **[agentic-kit](https://github.com/synthanai/agentic-kit)** | The **Infrastructure** for reliable agent systems. |
 
 > *Built by [SYNTHAI](https://synthai.tech) — Decision Intelligence for the AI Era.*
+
 

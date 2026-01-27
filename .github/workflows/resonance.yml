@@ -1,0 +1,27 @@
+name: Ecosystem Resonance
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  resonance-check:
+    runs-on: ubuntu-latest
+    name: AI-Readiness Audit
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install AIReady CLI
+      run: npm install -g @aiready/cli
+      
+    - name: Context Cost Audit (Python)
+      # Python files can be large, setting generous budget
+      run: aiready context . --max-context 8000

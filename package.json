@@ -1,0 +1,27 @@
+{
+  "name": "agentic-kit",
+  "version": "1.0.0",
+  "description": "> **Reusable agentic infrastructure for AI decision systems.**   > *Agents need infrastructure, not just prompts.*",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synthanai/agentic-kit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/synthanai/agentic-kit/issues"
+  },
+  "homepage": "https://github.com/synthanai/agentic-kit#readme",
+  "devDependencies": {
+    "@aiready/cli": "^0.7.17"
+  }
+}

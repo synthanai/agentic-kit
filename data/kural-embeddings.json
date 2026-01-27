@@ -1,0 +1,230 @@
+{
+    "name": "Kural Wisdom Embeddings",
+    "version": "2.0.0",
+    "description": "Pre-indexed Tamil Sages for Agentic SemanticMemory - aligned with SPAR Literary personas",
+    "sages": [
+        {
+            "id": "thiruvalluvar",
+            "name": "Thiruvalluvar",
+            "focus": "Ethics, virtue, and statecraft from the 1330 Kurals",
+            "source": "thirukkural",
+            "era": "~500 CE",
+            "tier": "sage",
+            "keywords": [
+                "ethics",
+                "virtue",
+                "governance",
+                "duty",
+                "truth",
+                "wealth",
+                "love"
+            ],
+            "themes": {
+                "aram": "Virtue and moral duty (Chapters 1-380)",
+                "porul": "Wealth, governance, and statecraft (Chapters 381-1080)",
+                "inbam": "Love and relationships (Chapters 1081-1330)"
+            },
+            "embeddingId": "emb_thiruvalluvar_001"
+        },
+        {
+            "id": "avvaiyar",
+            "name": "Avvaiyar",
+            "focus": "Mentorship, practical wisdom, and moral guidance",
+            "source": "aathichoodi",
+            "era": "Sangam-13th C",
+            "tier": "sage",
+            "keywords": [
+                "mentorship",
+                "guidance",
+                "education",
+                "mother",
+                "wisdom",
+                "children"
+            ],
+            "themes": {
+                "aathichoodi": "Alphabetic moral precepts for children",
+                "kondrai_vendhan": "Advanced moral lessons"
+            },
+            "embeddingId": "emb_avvaiyar_001"
+        },
+        {
+            "id": "ilangovadigal",
+            "name": "Ilangovadigal",
+            "focus": "Justice, dharma, and institutional accountability",
+            "source": "silappathikaram",
+            "era": "~5th C CE",
+            "tier": "sage",
+            "keywords": [
+                "justice",
+                "dharma",
+                "tragedy",
+                "institutions",
+                "karma"
+            ],
+            "themes": {
+                "justice": "When institutions fail, cosmic mechanisms activate",
+                "karma": "Actions have consequences beyond the individual"
+            },
+            "embeddingId": "emb_ilangovadigal_001"
+        },
+        {
+            "id": "kannagi",
+            "name": "Kannagi",
+            "focus": "Righteous fury and cosmic justice when institutions fail",
+            "source": "silappathikaram",
+            "era": "~5th C CE",
+            "tier": "avatar",
+            "archetype": "Justice",
+            "keywords": [
+                "justice",
+                "righteousness",
+                "fury",
+                "loss",
+                "betrayal",
+                "fire"
+            ],
+            "themes": {
+                "righteous_anger": "When all else fails, the wronged must rise",
+                "institutional_failure": "When systems fail, individuals bear the burden"
+            },
+            "embeddingId": "emb_kannagi_001"
+        },
+        {
+            "id": "kovalan",
+            "name": "Kovalan",
+            "focus": "Human weakness and the cost of choices",
+            "source": "silappathikaram",
+            "era": "~5th C CE",
+            "tier": "avatar",
+            "archetype": "Human Fallibility",
+            "keywords": [
+                "weakness",
+                "temptation",
+                "redemption",
+                "love",
+                "loss"
+            ],
+            "embeddingId": "emb_kovalan_001"
+        },
+        {
+            "id": "madhavi",
+            "name": "Madhavi",
+            "focus": "Social constraints, artistic integrity, and forced choices",
+            "source": "silappathikaram",
+            "era": "~5th C CE",
+            "tier": "avatar",
+            "archetype": "Artist",
+            "keywords": [
+                "art",
+                "constraints",
+                "society",
+                "dancer",
+                "sacrifice"
+            ],
+            "embeddingId": "emb_madhavi_001"
+        },
+        {
+            "id": "sathanar",
+            "name": "Sathanar",
+            "focus": "Twin fates, transformation through adversity",
+            "source": "manimekalai",
+            "era": "~6th C CE",
+            "tier": "sage",
+            "keywords": [
+                "transformation",
+                "adversity",
+                "duality",
+                "fate",
+                "philosophy"
+            ],
+            "embeddingId": "emb_sathanar_001"
+        },
+        {
+            "id": "manimekalai",
+            "name": "Manimekalai",
+            "focus": "Renunciation and inner revolution after systemic failure",
+            "source": "manimekalai",
+            "era": "~6th C CE",
+            "tier": "avatar",
+            "archetype": "Renunciant",
+            "keywords": [
+                "renunciation",
+                "spiritual",
+                "inner",
+                "revolution",
+                "transcendence"
+            ],
+            "embeddingId": "emb_manimekalai_001"
+        },
+        {
+            "id": "kambar",
+            "name": "Kambar",
+            "focus": "Epic narrative, duty, and the dharmic order",
+            "source": "kamba_ramayanam",
+            "era": "12th C CE",
+            "tier": "sage",
+            "keywords": [
+                "epic",
+                "duty",
+                "dharma",
+                "narrative",
+                "tradition"
+            ],
+            "embeddingId": "emb_kambar_001"
+        }
+    ],
+    "queryHints": {
+        "ethics": [
+            "thiruvalluvar"
+        ],
+        "virtue": [
+            "thiruvalluvar",
+            "avvaiyar"
+        ],
+        "mentorship": [
+            "avvaiyar"
+        ],
+        "children": [
+            "avvaiyar"
+        ],
+        "education": [
+            "avvaiyar"
+        ],
+        "justice": [
+            "kannagi",
+            "ilangovadigal"
+        ],
+        "governance": [
+            "thiruvalluvar"
+        ],
+        "tragedy": [
+            "ilangovadigal",
+            "kannagi",
+            "kovalan"
+        ],
+        "dharma": [
+            "ilangovadigal",
+            "kambar"
+        ],
+        "love": [
+            "thiruvalluvar",
+            "kovalan"
+        ],
+        "weakness": [
+            "kovalan"
+        ],
+        "art": [
+            "madhavi"
+        ],
+        "transformation": [
+            "sathanar",
+            "manimekalai"
+        ],
+        "renunciation": [
+            "manimekalai"
+        ],
+        "epic": [
+            "kambar"
+        ]
+    }
+}

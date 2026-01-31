@@ -7,6 +7,8 @@ Modules:
 - circuit_breaker: Safety mechanisms (circuit breakers, kill switches, rate limiters)
 - reflection: Post-action self-critique and re-deliberation
 - context7_bridge: Integration with Context7 for versioned library docs (optional)
+- model_fallback: OpenClaw graceful degradation across LLM providers
+- session_manager: OpenClaw implicit session state tracking
 """
 
 from agentic_kit.memory import (
@@ -41,6 +43,28 @@ from agentic_kit.reflection import (
     ConfidenceCalibration,
 )
 
+# OpenClaw Pattern Implementations
+from agentic_kit.model_fallback import (
+    invoke_with_fallback,
+    arivar_invoke,
+    ModelConfig,
+    ModelProvider,
+    FallbackError,
+    load_fallback_chain_from_config,
+    DEFAULT_FALLBACK_CHAIN,
+)
+from agentic_kit.session_manager import (
+    Session,
+    SessionManager,
+    SessionCheckpoint,
+    SessionMetadata,
+    get_session_manager,
+    current_session,
+    create_session,
+    checkpoint,
+    resume,
+)
+
 # Optional: Context7 integration (graceful degradation if unavailable)
 try:
     from agentic_kit.context7_bridge import (
@@ -59,7 +83,7 @@ except ImportError:
     get_library_docs_sync = None
     context7_available = lambda: False
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"  # Bump for OpenClaw integration
 __all__ = [
     # Memory
     "SemanticMemoryStore",
@@ -94,4 +118,23 @@ __all__ = [
     "LibraryDocs",
     "get_library_docs_sync",
     "context7_available",
+    # OpenClaw: Model Fallback
+    "invoke_with_fallback",
+    "arivar_invoke",
+    "ModelConfig",
+    "ModelProvider",
+    "FallbackError",
+    "load_fallback_chain_from_config",
+    "DEFAULT_FALLBACK_CHAIN",
+    # OpenClaw: Session Manager
+    "Session",
+    "SessionManager",
+    "SessionCheckpoint",
+    "SessionMetadata",
+    "get_session_manager",
+    "current_session",
+    "create_session",
+    "checkpoint",
+    "resume",
 ]
+

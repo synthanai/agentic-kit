@@ -1,0 +1,150 @@
+@prefix sko: <https://synthai.tech/ontology/sko#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================
+# SYNTHAI Knowledge Ontology (SKO) v1.0
+# ============================================================
+# A semantic model for the SYNTHAI ecosystem enabling queryable
+# knowledge graphs across KIs, artifacts, personas, and workflows.
+#
+# Based on BMAD SAR Ontology pattern.
+# ============================================================
+
+# ------------------------------------------------------------
+# Core Classes
+# ------------------------------------------------------------
+
+sko:KnowledgeItem a rdfs:Class ;
+    rdfs:label "Knowledge Item" ;
+    rdfs:comment "A curated knowledge unit in the SYNTHAI ecosystem" .
+
+sko:Artifact a rdfs:Class ;
+    rdfs:label "Artifact" ;
+    rdfs:comment "A file or document belonging to a Knowledge Item" .
+
+sko:Conversation a rdfs:Class ;
+    rdfs:label "Conversation" ;
+    rdfs:comment "A chat session that generated or modified knowledge" .
+
+sko:Persona a rdfs:Class ;
+    rdfs:label "Persona" ;
+    rdfs:comment "A SPAR archetype or author identity with ENCORES verification" .
+
+sko:Framework a rdfs:Class ;
+    rdfs:label "Framework" ;
+    rdfs:comment "A structured methodology (DMS, SPAR, ENCORES, MBS)" .
+
+sko:Book a rdfs:Class ;
+    rdfs:label "Book" ;
+    rdfs:comment "A publication in the SHIFT series" .
+
+sko:Workflow a rdfs:Class ;
+    rdfs:label "Workflow" ;
+    rdfs:comment "An agent workflow definition in .agent/workflows/" .
+
+sko:Principle a rdfs:Class ;
+    rdfs:label "Principle" ;
+    rdfs:comment "A guiding axiom or belief (BMAD 4-element model)" .
+
+# ------------------------------------------------------------
+# KI Properties
+# ------------------------------------------------------------
+
+sko:title a owl:DatatypeProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range xsd:string ;
+    rdfs:label "title" .
+
+sko:version a owl:DatatypeProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range xsd:string ;
+    rdfs:label "version" .
+
+sko:summary a owl:DatatypeProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range xsd:string ;
+    rdfs:label "summary" .
+
+sko:created a owl:DatatypeProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "created" .
+
+sko:modified a owl:DatatypeProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "modified" .
+
+# ------------------------------------------------------------
+# Persona Properties (BMAD 4-element)
+# ------------------------------------------------------------
+
+sko:role a owl:DatatypeProperty ;
+    rdfs:domain sko:Persona ;
+    rdfs:range xsd:string ;
+    rdfs:label "role" .
+
+sko:identity a owl:DatatypeProperty ;
+    rdfs:domain sko:Persona ;
+    rdfs:range xsd:string ;
+    rdfs:label "identity" .
+
+sko:style a owl:DatatypeProperty ;
+    rdfs:domain sko:Persona ;
+    rdfs:range xsd:string ;
+    rdfs:label "communication style" .
+
+sko:hasPrinciple a owl:ObjectProperty ;
+    rdfs:domain sko:Persona ;
+    rdfs:range sko:Principle ;
+    rdfs:label "has principle" .
+
+# ------------------------------------------------------------
+# Relationships
+# ------------------------------------------------------------
+
+sko:dependsOn a owl:ObjectProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range sko:KnowledgeItem ;
+    rdfs:label "depends on" ;
+    rdfs:comment "KI depends on another KI for context or definitions" .
+
+sko:hasArtifact a owl:ObjectProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range sko:Artifact ;
+    rdfs:label "has artifact" .
+
+sko:derivedFrom a owl:ObjectProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range sko:Conversation ;
+    rdfs:label "derived from" ;
+    rdfs:comment "KI was created or updated in this conversation" .
+
+sko:implements a owl:ObjectProperty ;
+    rdfs:domain sko:KnowledgeItem ;
+    rdfs:range sko:Framework ;
+    rdfs:label "implements" .
+
+sko:usesPersona a owl:ObjectProperty ;
+    rdfs:domain sko:Workflow ;
+    rdfs:range sko:Persona ;
+    rdfs:label "uses persona" .
+
+sko:triggers a owl:ObjectProperty ;
+    rdfs:domain sko:Workflow ;
+    rdfs:range sko:Workflow ;
+    rdfs:label "triggers" ;
+    rdfs:comment "Workflow can trigger another workflow" .
+
+sko:partOf a owl:ObjectProperty ;
+    rdfs:domain sko:Artifact ;
+    rdfs:range sko:Book ;
+    rdfs:label "part of" .
+
+sko:validates a owl:ObjectProperty ;
+    rdfs:domain sko:Persona ;
+    rdfs:range sko:KnowledgeItem ;
+    rdfs:label "validates" ;
+    rdfs:comment "Persona used to validate KI content via SPAR" .

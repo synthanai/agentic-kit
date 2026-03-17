@@ -107,6 +107,9 @@ class Session:
         return cls.from_dict(data)
 
 
+import shutil
+import gzip
+
 class SessionManager:
     """
     Manages ARIVAR sessions with implicit state tracking.
@@ -114,6 +117,7 @@ class SessionManager:
     Key behaviors:
     - Commands without --session flag use the most recent session
     - Sessions auto-expire after 24 hours
+    - OpenClaw Invariant: Flush Before Discard (sessions are archived, not deleted)
     - Session state persists across CLI invocations
     """
     
@@ -121,17 +125,20 @@ class SessionManager:
         self,
         tool: str = "arivar",
         sessions_dir: Optional[Path] = None,
+        archive_dir: Optional[Path] = None,
         auto_cleanup_hours: int = 24,
         max_sessions: int = 50,
     ):
         self.tool = tool
         self.sessions_dir = sessions_dir or Path.home() / f".{tool}" / "sessions"
+        self.archive_dir = archive_dir or self.sessions_dir.parent / "archive"
         self.auto_cleanup_hours = auto_cleanup_hours
         self.max_sessions = max_sessions
         self._current: Optional[Session] = None
         
-        # Ensure sessions directory exists
+        # Ensure directories exist
         self.sessions_dir.mkdir(parents=True, exist_ok=True)
+        self.archive_dir.mkdir(parents=True, exist_ok=True)
     
     def create(
         self,
@@ -243,8 +250,24 @@ class SessionManager:
         
         return [Session.load(p) for p in sessions]
     
+    def _archive_session(self, path: Path) -> None:
+        """Move session file to archive, gzipping to save space (Flush before discard)."""
+        archive_path = self.archive_dir / f"{path.name}.gz"
+        try:
+            with open(path, 'rb') as f_in:
+                with gzip.open(archive_path, 'wb') as f_out:
+                    shutil.copyfileobj(f_in, f_out)
+            path.unlink()
+        except Exception as e:
+            logger.error(f"Failed to archive session {path.name}: {e}")
+            # Fallback to simple move if gzip fails
+            try:
+                shutil.move(str(path), str(self.archive_dir / path.name))
+            except Exception as e2:
+                logger.error(f"Fallback move failed for {path.name}: {e2}")
+
     def cleanup_old_sessions(self) -> int:
-        """Remove sessions older than auto_cleanup_hours."""
+        """Archive sessions older than auto_cleanup_hours."""
         cutoff = datetime.now() - timedelta(hours=self.auto_cleanup_hours)
         removed = 0
         
@@ -253,9 +276,9 @@ class SessionManager:
                 session = Session.load(path)
                 updated = datetime.fromisoformat(session.updated_at)
                 if updated < cutoff:
-                    path.unlink()
+                    self._archive_session(path)
                     removed += 1
-                    logger.debug(f"Removed old session: {path.name}")
+                    logger.debug(f"Archived old session: {path.name}")
             except Exception as e:
                 logger.warning(f"Error checking session {path}: {e}")
         
@@ -266,12 +289,12 @@ class SessionManager:
         )
         while len(sessions) > self.max_sessions:
             oldest = sessions.pop(0)
-            oldest.unlink()
+            self._archive_session(oldest)
             removed += 1
-            logger.debug(f"Removed excess session: {oldest.name}")
+            logger.debug(f"Archived excess session: {oldest.name}")
         
         if removed:
-            logger.info(f"Cleaned up {removed} old sessions")
+            logger.info(f"Cleaned up (archived) {removed} sessions")
         
         return removed
     

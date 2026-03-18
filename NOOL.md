@@ -23,5 +23,21 @@ Agents need infrastructure, not just prompts. Agentic-kit provides the battle-te
 | Version | Date | Layer Changed | What Changed |
 |---------|------|---------------|--------------|
 | v0.1 | 2026-02-27 | All | Initial NOOL from README |
+| v0.2 | 2026-03-19 | Body | Added 'Ingestion > Generation' design principle (Prabhu/Meta evidence) |
+
+---
+
+## Design Principles
+
+### Ingestion > Generation (v0.2, 2026-03-19)
+
+> "The real leverage came from automating inputs: catching up on chat threads, parsing meeting notes, routing action items. Once the ingestion layer works well, generation becomes far more useful."
+> — Rangaprabhu Parthasarathy, Director of Product, Meta (from `persons/rangaprabhu-parthasarathy/research.md`)
+
+**Principle**: Build the EXPLORE layer (ingestion, parsing, context assembly) before the FORGE layer (generation, synthesis, output). This maps directly to CODEX's verb ordering: EXPLORE before FORGE, LEARN before AUDIT.
+
+**Implementation implication**: When building new kits or agent pipelines, invest in ingestion infrastructure first. An agent that understands context well generates better output than an agent with a better generation model but poor context.
+
+**Evidence**: Prabhu built an AI Chief of Staff at Meta using Claude Code. His system runs 4x daily, ingesting chat threads, meeting notes, and documents. His edit-tracking feedback loop (snapshot AI output, compare with human edits, measure delta) validates that ingestion quality directly determines generation quality.
 
 > *நூல் (nool): the thread that connects, the text that records, the classic that endures.*
